@@ -1,0 +1,325 @@
+﻿    <!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><style>.nodata  main {width:1000px;margin: auto;}</style></head><body class="nodata " style=""><div class="main_father clearfix d-flex justify-content-center " style="height:100%;"> <div class="container clearfix " id="mainBox"><main><div class="blog-content-box">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" type="text/css" href="https://2.lz787.com/assets/1.css">
+
+        <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-yellow/skin-yellow-28d34ab5fa.min.css"><div class="blog-content-box">
+    <div class="article-header-box">
+        <div class="article-header">
+            <div class="article-title-box">
+                <h1 class="title-article" id="articleContentId">为什么 卷积网络输出特征图会越来越多_卷积操作中的填充与池化</h1>
+            </div>
+            <div class="article-info-box">
+                    <div class="up-time">最新推荐文章于&nbsp;2022-11-30 11:44:06&nbsp;发布</div>
+                <div class="article-bar-top">
+                    <img class="article-type-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/original.png" alt="">
+                    <div class="bar-content">
+                      <img class="article-vip-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/identityVipNew.png" alt="">
+                      <a class="follow-nickName " href="https://blog.csdn.net/weixin_39992665" target="_blank" rel="noopener" title="weixin_39992665">weixin_39992665</a>
+                    <img class="article-time-img article-heard-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCurrentTime2.png" alt="">
+                          <span class="time blog-postTime" data-time="2020-12-24 01:32:55">最新推荐文章于&nbsp;2022-11-30 11:44:06&nbsp;发布</span>
+                   <div class="read-count-box">
+                      <img class="article-read-img article-heard-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/articleReadEyes2.png" alt="">
+                      <span class="read-count">阅读量2k</span>
+                      <a id="blog_detail_zk_collection" class="un-collection" data-report-click='{"mod":"popu_823","spm":"1001.2101.3001.4232","ab":"new"}'>
+                          <img class="article-collect-img article-heard-img un-collect-status isdefault" style="display:inline-block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollect2.png" alt="">
+                          <img class="article-collect-img article-heard-img collect-status isactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive2.png" alt="">
+                          <span class="name">收藏</span>
+                          <span class="get-collection">
+                              3
+                          </span>
+                      </a>
+                      <div class="read-count-box is-like">
+                        <img class="article-read-img article-heard-img" style="display:none" id="is-like-imgactive-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Active.png" alt="">
+                        <img class="article-read-img article-heard-img" style="display:block" id="is-like-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Black.png" alt="">
+                        <span class="read-count" id="blog-digg-num">点赞数
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="blog-tags-box">
+                    <div class="tags-box artic-tag-box">
+                            <span class="label">文章标签：</span>
+                                <a rel="nofollow" data-report-query="spm=1001.2101.3001.4223" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"为什么 卷积网络输出特征图会越来越多","ab":"new","extra":"{\"searchword\":\"为什么 卷积网络输出特征图会越来越多\"}"}' data-report-view='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"为什么 卷积网络输出特征图会越来越多","ab":"new","extra":"{\"searchword\":\"为什么 卷积网络输出特征图会越来越多\"}"}' class="tag-link" href="https://so.csdn.net/so/search/s.do?q=为什么 卷积网络输出特征图会越来越多&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=&amp;from_tracking_code=tag_word&amp;from_code=app_blog_art" target="_blank" rel="noopener">为什么 卷积网络输出特征图会越来越多</a>
+                    </div>
+                </div>
+                <div class="slide-content-box">
+                    <div class="article-copyright">
+                        <div class="creativecommons">
+                            版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。
+                        </div>
+                        <div class="article-source-link">
+                            本文链接：<a href="https://blog.csdn.net/weixin_39992665/article/details/112065092" target="_blank">https://blog.csdn.net/weixin_39992665/article/details/112065092</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="operating">
+                    <a class="href-article-edit slide-toggle">版权</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="blogHuaweiyunAdvert"></div>
+      <div class="ai-abstract-box">
+         <div class="ai-abstract">
+          <div class="abstract-content">
+            <img class="lock-img" src="https://img-home.csdnimg.cn/images/20240711042549.png" alt="">
+            本文详细探讨了卷积网络输出特征图的形状计算，包括卷积后形状的确定和Padding的使用。同时，文章阐述了池化操作的概念、计算过程以及池化在减少参数量和防止过拟合中的作用。通过实例和图示，解释了如何通过调整Padding参数来保持特征图大小不变。此外，讨论了最大池化、最小池化和平均池化之间的区别，并强调了池化在深度学习中的重要性。
+          </div>
+          <span>摘要由CSDN通过智能技术生成</span>
+        </div>
+      </div>
+    <article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-704d5b9767.css">
+             
+                <div id="content_views" class="htmledit_views">
+                    <div class="._5ce-wx-style" style="font-size:16px;"> 
+ <div class="rich_media_content" id="js_content"> 
+  <p>由于公众号改版不再按照作者的发布时间进行推送&#xff0c;为防止各位朋友错过月来客栈推送的最新文章&#xff0c;大家可以手动将公众号设置为“<strong>星标</strong>”以第一时间获得推送内容&#xff0c;感谢各位~</p> 
+  <p><img src="https://i-blog.csdnimg.cn/blog_migrate/ffead5ed26bbb84ac0bfd7c4c155264e.png" alt="4b0ff2f06461f33a8769cf21d1fd8fea.png" /></p> 
+  <h3><span style="font-weight:bold;"></span>1 前言</h3> 
+  <p>在前面的两篇文章中&#xff0c;笔者分别介绍了<strong>卷积的思想</strong>与<strong>原理</strong>以及卷积操作在各类场景下的具体计算过程。在接下来的这篇文中&#xff0c;笔者将主要围绕着卷积后形状的计算、卷积中的池化操作以及Pytorch中卷积操作的用法这三方面来进行介绍。在这篇文章后&#xff0c;对于卷积的基础知识就算是介绍完了&#xff0c;后面笔者将开始对一些经典的卷积网络进行介绍。</p> 
+  <h3><span style="font-weight:bold;"></span>2 形状的计算</h3> 
+  <p>在<strong>前面一篇文章</strong>中&#xff0c;笔者详细介绍了卷积操作中的卷积计算过程&#xff0c;但是对于卷积后特征图形状的计算并没有进行介绍。下面&#xff0c;我们就来看看如何计算卷积后的形状。</p> 
+  <h4><span style="font-weight:bold;"></span>2.1 输出形状<span style="font-weight:bold;"></span></h4> 
+  <p>对于最后输出形状的计算在我们自己写代码的过程中是十分重要的&#xff0c;关系到你如何设置卷积核的大小&#xff0c;以及卷积的层数。现在我们用来表示输入特征图的宽度&#xff0c;表示卷积核的宽度&#xff0c;表示卷积核每移动一次的步长&#xff0c;那么此时卷积后特征图的宽度为&#xff1a;</p> 
+   
+  <p>其中表示对向上取整&#xff0c; 表示对向下取整。公式中的两种计算方法都行&#xff0c;记住其中一种即可。</p> 
+  <p>例如有输入形状为的特征图&#xff0c;卷积核的形状为&#xff0c;同时步长为&#xff0c;那么卷积后的形状则为&#xff1a;</p> 
+   
+  <p>即的特征图。</p> 
+  <h4><span style="font-weight:bold;"></span>2.2 Padding<span style="font-weight:bold;"></span></h4> 
+  <p>从上面的计算过程可以看出&#xff0c;每卷积一次所得到特征图的大小都会小于输入时特征图的大小&#xff0c;但是在一些情况下我们更希望其卷积后的大小能够等同于输入时的大小。那这该怎么做呢&#xff1f;为了保持卷积后的特征图的大小与输入时一直&#xff0c;通常来说我们都会对输入的特征图进行填充(Padding)&#xff0c;也就是把他的形状变大&#xff0c;这样卷积后的大小就可以与原始输入的特征图保持一致。</p> 
+  <img src="https://i-blog.csdnimg.cn/blog_migrate/fc07341259bbe66f3a109ce9635c3914.png" alt="e6bdf4124d5779d126c8b7be0a993072.png" /> 
+  <center>
+    图 1. 填充图 
+  </center> 
+  <p>如图1所示&#xff0c;左边为原始的特征图&#xff0c;其大小 &#xff1b;右边为填充后的特征图&#xff0c;其大小变成了。对左右两边均用大小为的卷积核进行卷积()&#xff0c;那么卷积后左边的大小为&#xff0c;有右边的大小为。可以发现&#xff0c;经过填充处理后&#xff0c;就能够使得卷积后特征图的大小与输入时的大小保持一致。当然&#xff0c;如果是多通道的话&#xff0c;则对应在每个通道都这样填充即可。</p> 
+  <p>同时&#xff0c;我们把图1中右边填充的参数称作&#xff0c;且此时的&#xff0c;即填充了圈。那现在假如原始的特征图大小为&#xff0c;卷积核大小为&#xff0c;步长为&#xff0c;并且希望卷积后特征图的大小为&#xff0c;那么此时对应的填充参数应该等于多少呢&#xff1f;其应该等于&#xff1a;</p> 
+   
+  <p>举两个例子&#xff1a;</p> 
+  <p>例一&#xff1a;原始特征图大小为&#xff0c;卷积核大小为&#xff0c;&#xff0c;那么为何值时能够使得卷积后的大小与输入保持一致&#xff1f;</p> 
+  <p>由公式可知&#xff0c;</p> 
+   
+  <p>即&#xff0c;将原始特征填充圈后&#xff0c;卷积后特征图的大小会与输入时保持一致(可以根据公式自行检验)。</p> 
+  <p>例二&#xff1a;原始特征图大小为&#xff0c;卷积核大小为&#xff0c;&#xff0c;那么为何值时能够使得卷积后的大小为&#xff1f;</p> 
+  <p>由公式可知&#xff0c;</p> 
+   
+  <p>即&#xff0c;将原始特征填充圈后&#xff0c;卷积后特征图的大小会变成。</p> 
+  <p>当然&#xff0c;在实际过程中不会这么刁钻&#xff0c;通常情况下我们都是希望与输入的特征图大小保持一致。最后&#xff0c;对于池化操作来说&#xff0c;想要使得池化后的输出为特定的大小&#xff0c;也只需要按照上述方法进行填充即可。</p> 
+  <h3><span style="font-weight:bold;"></span>3 池化</h3> 
+  <p>说起池化操作&#xff0c;它可以算是卷积神经网络中一个必不可少的步骤&#xff0c;几乎绝大多数卷积网络都用到了池化来提升网络模型的精度。但这也并不是一个必须的选项&#xff0c;你同样可以选择不用。那什么又是池化&#xff0c;为什么又需要池化呢&#xff1f;</p> 
+  <h4><span style="font-weight:bold;"></span>3.1 什么是池化<span style="font-weight:bold;"></span></h4> 
+  <p>所谓池化&#xff0c;你可以将其看作是一个信息筛选或者过滤的操作。池化操作使用某一位置的相邻输出的总体特征来代替网络在该位置的输出[1]。例如<strong>最大池化</strong>(max pooling)会给出相邻矩形区域内的最大值作为该位置的输出。除此之外还有<strong>最小池化</strong>(min pooling)和<strong>平均池化</strong>(average pooling)等。下面我们就来池化操作的具体计算步骤进行介绍。</p> 
+  <p>3.2 池化的计算</p> 
+  <p>如图2所示&#xff0c;左边为输入的特征图&#xff0c;右边为经过最大池化后的结果。</p> 
+  <img src="https://i-blog.csdnimg.cn/blog_migrate/d57e9887bdea8c3f8cb6e142671e299d.png" alt="02a2bc02b5bc8341afd21165d5debb83.png" /> 
+  <center>
+    图 2. 单通道最大池化图 
+  </center> 
+  <p>从图2可以看出&#xff0c;最大池化就是给定一个固定大小的滑动窗口&#xff0c;然后选择窗口中的最大值来代替整个区域作为输出&#xff0c;最后再依次对整个特征图进行池化操作就得到池化后的特征输出。同时可以发现&#xff0c;对于池化操作来说其并没有权重参数。</p> 
+  <img src="https://i-blog.csdnimg.cn/blog_migrate/248ddd0705f7a94fdece9a00fdae32ad.png" alt="bad4af1dcd80da23471c7ac119ef082c.png" /> 
+  <center>
+    图 3. 多通道最大池化 
+  </center> 
+  <p>如图3所示为多通道的池化操作&#xff0c;左边为输入的特征图&#xff0c;右边为池化后的特征图。可以发现&#xff0c;所谓多通道的池化操作&#xff0c;其实就是在每个特征通道上各自进行池化操作&#xff0c;它并没有改变特征的通道数(这一点不同于多通道卷积)。</p> 
+  <p>同理&#xff0c;对于最小池化和平均池化来说&#xff0c;其与最大池化的不同点仅仅在于计算方式上的不同。最小池化和平均池化分别会选择滑动窗口中的最小值和平均值来代替整个区域作为输出&#xff0c;其它地方并没有什么不同&#xff0c;因此就不再赘述。下面我们来看看为什么需要池化操作。</p> 
+  <h4><span style="font-weight:bold;"></span>3.2 为什么需要池化<span style="font-weight:bold;"></span></h4> 
+  <p>通常来说深度学习中的每一个操作都有着其对应的作用&#xff0c;而池化操作的作用主要就体现在两个方面&#xff1a;减少参数量和防止过拟合。</p> 
+  <h5><span style="font-weight:bold;"></span>3.2.1 减少参数量<span style="font-weight:bold;"></span></h5> 
+  <p>由于在图像处理中输入的图片像素普遍较大&#xff0c;同时在采取深度卷积后也会得到多个特征通道(在有的网络中&#xff0c;这一数字可能是1024或者更大)&#xff0c;因此最终得到的特征图在进行后续的其它操作(例如全连接)时就会对应有大量的权重参数。以输入形状为的图片为例&#xff0c;在经过形状为的卷积核卷积处理后&#xff0c;将会得到形状为的特征图。如果后续再通过一个包含有个神经元的全连接层来对其进行分类&#xff0c;那么此时将会有个神经元。但是&#xff0c;如果先对特征图进行池化处理&#xff0c;那么这一数字就可能变成&#xff0c;缩小了4倍。</p> 
+  <p>同时值得注意的是&#xff0c;在实际的操作中大家一般会选择窗口大小为3步长为2&#xff0c;或者是窗口大小为2步长为2的配置进行最大池化操作[2]&#xff0c;并且更常见是第二种配置。</p> 
+  <h5><span style="font-weight:bold;"></span>3.2.2 防止过拟合<span style="font-weight:bold;"></span></h5> 
+  <p>通常来说&#xff0c;在卷积网络中输入的特征图都具有比较高的像素密度&#xff0c;以实现对某一类特征元素的精确刻画。但是这样一来也会带来一个弊端&#xff0c;那就是容易造成模型的过拟合现象。其原因在于&#xff0c;如果在网络训练结束后某些层的特征图像素密度很高&#xff0c;那么就会造成这些层的特征容错能力很低&#xff0c;结果就会导致在实际的预测过程中如果输入时的特征图与训练时的特征图存在一定的差异&#xff0c;那么后续下游任务的精度将会大打折扣。</p> 
+  <p>因此&#xff0c;如果我们只用一个像素值来表示该像素值周围的值&#xff0c;那么从理论上将是不是就能够在一定程度上缓解这种过拟合的敏感现象&#xff1f;</p> 
+  <p><img src="https://i-blog.csdnimg.cn/blog_migrate/cd34ce085432af9c697e18e16f86ddd9.png" alt="44075fb043fed4f5838672156ba8fadb.png" /></p> 
+  <center>
+    图 4. 池化结果图 
+  </center> 
+  <p>如图4所示&#xff0c;左边的为一张正常显示的图片&#xff0c;右边为该图片经过最大池化后的结果。可以看到&#xff0c;虽然右边的图片在一定程度上变得更加模糊了&#xff0c;但是我们依然大致能够看出来它是什么。同时&#xff0c;这个模糊的程度会取决于池化窗口的大小&#xff0c;窗口越大得到的结果也就会更加的模糊&#xff0c;当然最后网络就会呈现出欠拟合的状态。因此&#xff0c;我们可以通过调节池化窗户大小这个超参数来找到网络在过拟合与欠拟合之间的一个平衡点。</p> 
+  <p>当然&#xff0c;也有一些人认为完全没有必要使用池化层来进行处理&#xff0c;只需要使用深层的卷积操作即可[2]。因此&#xff0c;对于到底使用还是不使用就是仁者见仁智者见智了&#xff0c;不过主流的做法还是会使用池化层。</p> 
+  <h3><span style="font-weight:bold;"></span>4 总结</h3> 
+  <p>在这篇文章中&#xff0c;笔者首先介绍了如何计算卷积后特征图形状大小的计算&#xff1b;接着介绍了什么是填充操作&#xff0c;如何来计算填充的参数&#xff1b;然后介绍了什么是池化操作、池化操作的计算以及为什么需要池化操作等。同时&#xff0c;由于文章篇幅有限&#xff0c;对于如何使用深度学习框架来实现卷积计算等内容&#xff0c;笔者将会在下一篇文章中进行介绍。</p> 
+  <p>本次内容就到此结束&#xff0c;感谢您的阅读&#xff01;如果你觉得上述内容对你有所帮助&#xff0c;<strong>欢迎关注并传播本公众号</strong>&#xff01;若有任何疑问与建议&#xff0c;请添加笔者微信&#39;nulls8&#39;或文末留言进行交流。青山不改&#xff0c;绿水长流&#xff0c;我们月来客栈见&#xff01;</p> 
+  <h4><span style="font-weight:bold;"></span>引用<span style="font-weight:bold;"></span></h4> 
+  <p>[1]《深度学习》</p> 
+  <p>[2]https://cs231n.github.io/convolutional-networks/#pool</p> 
+  <h4><span style="font-weight:bold;"></span>推荐阅读<span style="font-weight:bold;"></span></h4> 
+  <p><strong>[1]原来卷积是这么计算的</strong></p> 
+  <p><strong>[2]看不懂卷积或许只是因为</strong></p> 
+  <p><strong>[3]什么你还不会实现反向传播&#xff1f;</strong></p> 
+  <p><img src="https://i-blog.csdnimg.cn/blog_migrate/6973b2d5b04478b054d9a54e1eba4aff.jpeg" alt="8dc2def27ce28831a3a37dbdce171659.png" /></p> 
+ </div> 
+</div>
+                </div>
+        </div>
+        <div id="treeSkill"></div>
+<div id="recommendDown">
+</div>    </article>
+  <script>
+    $(function() {
+      setTimeout(function () {
+        var mathcodeList = document.querySelectorAll('.htmledit_views img.mathcode');
+        if (mathcodeList.length > 0) {
+          for (let i = 0; i < mathcodeList.length; i  ) {
+            if (mathcodeList[i].complete) {
+              if (mathcodeList[i].naturalWidth === 0 || mathcodeList[i].naturalHeight === 0) {
+                var alt = mathcodeList[i].alt;
+                alt = '\\('   alt   '\\)';
+                var curSpan = $('<span class="img-codecogs"></span>');
+                curSpan.text(alt);
+                $(mathcodeList[i]).before(curSpan);
+                $(mathcodeList[i]).remove();
+              }
+            } else {
+              mathcodeList[i].onerror = function() {
+                var alt = mathcodeList[i].alt;
+                alt = '\\('   alt   '\\)';
+                var curSpan = $('<span class="img-codecogs"></span>');
+                curSpan.text(alt);
+                $(mathcodeList[i]).before(curSpan);
+                $(mathcodeList[i]).remove();
+              };
+            }
+          }
+          MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+      }, 500)
+    });
+  </script>
+</div>
+<div class="directory-boxshadow-dialog" style="display:none;">
+  <div class="directory-boxshadow-dialog-box">
+  </div>
+   <div class="vip-limited-time-offer-box-new" id="vip-limited-time-offer-box-new">
+      <img class="limited-img limited-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close-newWhite.png">
+      <div class="vip-limited-time-top">
+        确定要放弃本次机会？
+      </div>
+      <span class="vip-limited-time-text">福利倒计时</span>
+      <div class="limited-time-box-new">
+        <span class="time-hour"></span>
+        <i>:</i>
+        <span class="time-minite"></span>
+        <i>:</i>
+        <span class="time-second"></span>
+      </div>
+      <div class="limited-time-vip-box">
+        <p>
+          <img class="coupon-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close-roup.png">
+          <span class="def">立减 yen</span>
+          <span class="active limited-num"></span>
+        </p>
+        <span class="">普通VIP年卡可用</span>
+      </div>
+      <a class="limited-time-btn-new" href="https://mall.csdn.net/vip" data-report-click='{"spm":"1001.2101.3001.9621"}' data-report-query='spm=1001.2101.3001.9621'>立即使用</a>
+  </div>
+</div>    <div class="more-toolbox-new" id="toolBarBox">
+      <div class="left-toolbox">
+        <div class="toolbox-left">
+            <div class="profile-box">
+              <a class="profile-href" target="_blank" href="https://blog.csdn.net/weixin_39992665"><img class="profile-img" src="https://profile-avatar.csdnimg.cn/default.jpg!1">
+                <span class="profile-name">
+                  weixin_39992665
+                </span>
+              </a>
+            </div>
+            <div class="profile-attend">
+                <a class="tool-attend tool-bt-button tool-bt-attend" href="javascript:;" data-report-view='{"mod":"1592215036_002","spm":"1001.2101.3001.4232","extend1":"关注"}'>关注</a>
+              <a class="tool-item-follow active-animation" style="display:none;">关注</a>
+            </div>
+        </div>
+        <div class="toolbox-middle">
+          <ul class="toolbox-list">
+            <li class="tool-item tool-item-size tool-active is-like" id="is-like">
+              <a class="tool-item-href">
+                <img style="display:none;" id="is-like-imgactive-animation-like" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarThumbUpactive.png" alt="">
+                <img class="isactive" style="display:none" id="is-like-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2021Active.png" alt="">
+                <img class="isdefault" style="display:block" id="is-like-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2021Black.png" alt="">
+                <span id="spanCount" class="count ">
+                      0
+                </span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">点赞</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike">
+              <a class="tool-item-href">
+                <img class="isactive" style="margin-right:0px;display:none" id="is-unlike-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newUnHeart2021Active.png" alt="">
+                <img class="isdefault" style="margin-right:0px;display:block" id="is-unlike-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newUnHeart2021Black.png" alt="">
+                <span id="unlikeCount" class="count "></span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">踩</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active is-collection ">
+              <a class="tool-item-href" href="javascript:;" data-report-click='{"mod":"popu_824","spm":"1001.2101.3001.4130","ab":"new"}'>
+                <img style="display:none" id="is-collection-img-collection" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive.png" alt="">
+                <img class="isdefault" id="is-collection-img" style="display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCollectBlack.png" alt="">
+                <img class="isactive" id="is-collection-imgactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCollectActive.png" alt="">
+                <span class="count get-collection " data-num="3" id="get-collection">
+                    3
+                </span>
+              </a>
+              <div class="tool-hover-tip collect">
+                <div class="collect-operate-box">
+                  <span class="collect-text" id="is-collection">
+                    收藏
+                  </span>
+                </div>
+              </div>
+              <div class="tool-active-list">
+                <div class="text">
+                  觉得还不错?
+                  <span class="collect-text" id="tool-active-list-collection">
+                    一键收藏
+                  </span>
+                 <img id="tool-active-list-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/collectionCloseWhite.png" alt="">
+                </div>
+              </div>
+            </li>
+          <li class="tool-item tool-item-size tool-active tool-item-comment">
+            <div class="guide-rr-first">
+              <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward01.png" alt="">
+              <button class="btn-guide-known">知道了</button>
+            </div>
+              <a class="tool-item-href go-side-comment" data-report-click='{"spm":"1001.2101.3001.7009"}'>
+              <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newComment2021Black.png" alt="">
+              <span class="count">
+                    0
+              </span>
+            </a>
+            <div class="tool-hover-tip"><span class="text space">评论</span></div>
+          </li>
+          <li class="tool-item tool-item-bar">
+          </li>
+          <li class="tool-item tool-item-size tool-active tool-QRcode" data-type="article" id="tool-share">
+            <a class="tool-item-href" href="javascript:;" data-report-view='{"spm":"3001.4129","extra":{"type":"blogdetail"}}'>
+              <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newShareBlack.png" alt="">
+            </a>
+              <div class="QRcode active" id="tool-QRcode">
+              <div class="share-bg-box">
+                <div class="share-content">
+                  <a id="copyPosterUrl" data-type="link" class="btn-share">复制链接</a>
+                </div>
+                <div class="share-content">
+                  <a class="btn-share" data-type="qq">分享到 QQ</a>
+                </div>
+                <div class="share-content">
+                  <a class="btn-share" data-type="weibo">分享到新浪微博</a>
+                </div>
+                <div class="share-code">
+                  <div class="share-code-box" id='shareCode'></div>
+                  <div class="share-code-text">
+                    <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/share/icon-wechat.png" alt="">扫一扫
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="toolbox-right"><script type="text/javascript" crossorigin src="https://g.csdnimg.cn/common/csdn-login-box/csdn-login-box.js"></script></html>
